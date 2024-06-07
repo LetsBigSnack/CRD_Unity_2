@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour
     private ForceMode selectedForceMode;
     [SerializeField]
     private MovementType movementType;
-   
+    
     
     private Vector3 movementDirection3d;
 
@@ -38,10 +38,21 @@ public class Movement : MonoBehaviour
 
     void PerformMovement()
     {
+
+        if (movementDirection3d == Vector3.zero)
+        {
+            return;
+        }
+        
+        transform.forward = Camera.main.transform.forward;
+        Quaternion cameraAlignedRotation = transform.rotation;
+        transform.forward = movementDirection3d;
+        transform.rotation *= cameraAlignedRotation;
         
         if (movementType == MovementType.TransformBased)
         {
-            gameObject.transform.position += movementDirection3d * _velocity;
+            //gameObject.transform.position += movementDirection3d * _velocity;
+            gameObject.transform.Translate(new Vector3(0,0,-0.1f) * _velocity);
         }
         else if (movementType == MovementType.PhysicsBased)
         {

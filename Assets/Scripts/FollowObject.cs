@@ -14,6 +14,11 @@ public class FollowObject : MonoBehaviour
     {
         otherObjectTransform = objectToFollow.GetComponent<Transform>();
         ownTransform = gameObject.GetComponent<Transform>();
+        SetOffset();
+    }
+
+    public void SetOffset()
+    {
         offsetOfFollowObjectAndOwnObject = ownTransform.position - otherObjectTransform.position;
     }
 
@@ -21,6 +26,5 @@ public class FollowObject : MonoBehaviour
     void Update()
     {
         gameObject.transform.position = otherObjectTransform.position + offsetOfFollowObjectAndOwnObject;
-        otherObjectTransform.forward = new Vector3(1f, 0, 0);
     }
 }
